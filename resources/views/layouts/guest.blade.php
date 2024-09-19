@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="absolute left-0 2xl:bottom-[-160px] bottom-[-130px] h-full w-full z-[-1]">
-                        <img class="h-full w-full object-containll" src="{{ asset('images/codenex-icon-light.svg') }}" alt="image">
+                        <img class="h-full w-full object-containll" src="{{ asset('images/logo/h-logo.svg') }}" alt="image">
                     </div>
                 </div>
                 <div class="right-column  relative">
@@ -32,7 +32,7 @@
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>
-                            , <a href="#">{{ __('Codenex') }}</a>
+                            , <a href="#">{{ __('Hala Wa Ghala') }}</a>
                             {{ __('All Rights Reserved.') }}
                         </div>
                     </div>
