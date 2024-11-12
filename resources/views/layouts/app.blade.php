@@ -9,7 +9,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     {{-- Favicon --}}
-    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/png">
    
 
     @notifyCss
