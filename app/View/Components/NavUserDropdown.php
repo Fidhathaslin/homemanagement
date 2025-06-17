@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class navuserdropdown extends Component
+class NavUserDropdown extends Component
 {
    
     public function render(): View

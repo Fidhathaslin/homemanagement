@@ -9,12 +9,6 @@
                     document.write(new Date().getFullYear())
                 </script> {{ __(env('APP_NAME') . '. All rights Reserved') }}
             </div>
-            <div class="ltr:md:text-right rtl:md:text-end text-center text-sm">
-                {{ __('Powered by') }}
-                <a href="https://codenex.in" target="_blank" class="text-primary-500 font-semibold">
-                    Codenex
-                </a>
-            </div>
         </div>
     </div>
 </footer>

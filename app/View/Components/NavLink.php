@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class navlink extends Component
+class NavLink extends Component
 {
     public function render(): View|Closure|string
     {

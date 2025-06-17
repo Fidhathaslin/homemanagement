@@ -15,13 +15,13 @@
             <div class="lg-inner-column">
                 <div class="left-column relative z-[1]">
                     <div class="max-w-[520px] pt-20 ltr:pl-20 rtl:pr-20">
-                        <!-- APPLICATION LOGO -->
-                        <div class="mb-6">
+                       <!-- APPLICATION LOGO  -->
+                         <div class="mb-6">
                             <x-application-logo />
-                        </div>
+                        </div> 
                     </div>
                     <div class="absolute left-0 2xl:bottom-[-160px] bottom-[-130px] h-full w-full z-[-1]">
-                        <img class="h-full w-full object-containll" src="{{ asset('images/logo/h-logo.svg') }}" alt="image">
+                        <img class="h-full w-full object-containll" src="{{ asset('images/logo/loginimage.png') }}" alt="image">
                     </div>
                 </div>
                 <div class="right-column  relative">
@@ -32,7 +32,7 @@
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>
-                            , <a href="#">{{ __('Hala Wa Ghala') }}</a>
+                            , <a href="#">{{ __('Home Management') }}</a>
                             {{ __('All Rights Reserved.') }}
                         </div>
                     </div>

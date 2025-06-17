@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class loginform extends Component
+class LoginForm extends Component
 {
     public function render(): View
     {

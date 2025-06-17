@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class grayscale extends Component
+class GrayScale extends Component
 {
    
     public function render(): View

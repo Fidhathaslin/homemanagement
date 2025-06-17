@@ -6,7 +6,7 @@ namespace App\View\Components;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class topbarmenu extends Component
+class Topbar_menu extends Component
 {
     
     public function render(): View
