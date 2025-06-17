@@ -27,6 +27,9 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+          Auth::user()->update([
+        'financial_year_id' => $request->input('financial_year_id'),
+    ]);
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

@@ -55,4 +55,10 @@ class User extends Authenticatable implements HasMedia
             ->acceptsMimeTypes(['image/png','image/jpeg','image/jpg'])
             ->singleFile();
     }
+
+            public function financialYear()
+        {
+            return $this->belongsTo(FinancialYear::class);
+        }
+
 }

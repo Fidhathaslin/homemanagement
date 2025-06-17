@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolesAndPermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FinancialYearController;
 
 
 Route::get('/', function () {
@@ -41,6 +42,9 @@ Route::group([
         Route::patch('/update/{user}', [UserController::class, 'update'])->name('update')->middleware('can:users-edit');
         Route::delete('/delete/{user}', [UserController::class, 'destroy'])->name('delete')->middleware('can:users-delete');
     });
+
+
+  
 
     //Settings routes
     Route::group([
@@ -89,6 +93,21 @@ Route::group([
             });
         });
     });
+      // Financial Year Routes
+    Route::group([
+        'as' => 'financial-years.',
+        'prefix' => 'financial-years',
+        // 'middleware' => 'can:financial-years-view'
+    ], function () {
+        Route::get('/', [FinancialYearController::class, 'index'])->name('index');
+        Route::get('/create', [FinancialYearController::class, 'create'])->name('create');
+        Route::post('/store', [FinancialYearController::class, 'store'])->name('store');
+Route::delete('/delete/{financialYear}', [FinancialYearController::class, 'destroy'])->name('destroy');
+
+
+
+    });
+
 });
 
 require __DIR__.'/auth.php';

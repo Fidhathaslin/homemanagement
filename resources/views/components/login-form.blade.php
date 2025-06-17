@@ -1,5 +1,23 @@
 <form method="POST" action="{{ route('login') }}" class="space-y-4">
     @csrf
+    {{-- Financial Year --}}
+    <div class="fromGroup">
+        <label for="financial_year_id" class="block capitalize form-label">{{ __('Financial Year') }}</label>
+        <div class="relative">
+            <select name="financial_year_id" id="financial_year_id"
+                class="form-control py-2 @error('financial_year_id') !border !border-red-500 @enderror" required>
+                <option value="" disabled selected>{{ __('Select Financial Year') }}</option>
+                @foreach(\App\Models\FinancialYear::all() as $fy)
+                    <option value="{{ $fy->id }}" {{ old('financial_year_id') == $fy->id ? 'selected' : '' }}>
+                        {{ $fy->name }} ({{ \Carbon\Carbon::parse($fy->start_date)->format('d M, Y') }} - {{ \Carbon\Carbon::parse($fy->end_date)->format('d M, Y') }})
+                    </option>
+                @endforeach
+            </select>
+            <x-input-error :messages="$errors->get('financial_year_id')" class="mt-2"/>
+        </div>
+    </div>
+    
+
     {{-- Email --}}
     <div class="fromGroup text-slate-50 text-base">
         <label for="email" class="block capitalize form-label">{{ __('Email') }}</label>
@@ -32,9 +50,9 @@
                 <span class="text-slate-500 dark:text-slate-400 text-sm leading-6">{{ __('Keep me signed in') }}</span>
             </label>
         </div>
-        <a href="{{ route('password.request') }}" class="text-sm text-slate-500 dark:text-slate-500 leading-6 font-medium">
+        <!-- <a href="{{ route('password.request') }}" class="text-sm text-slate-500 dark:text-slate-500 leading-6 font-medium">
             {{ __('Forgot your password?') }}
-        </a>
+        </a> -->
     </div>
 
     <button type="submit"

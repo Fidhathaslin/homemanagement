@@ -33,6 +33,33 @@
                   
                 </a>
             </li>
+
+            <li class="{{ request()->routeIs('financial-years.*') ? 'active' : '' }}">
+                <a href="{{ route('financial-years.index') }}" class="navItem">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="heroicons:calendar-days"></iconify-icon>
+                        <span>{{ __('Financial Year') }}</span>
+                    </span>
+                    <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('financial-years.index') }}" class="{{ request()->routeIs('financial-years.index') ? 'active' : '' }}">{{ __('List') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('financial-years.create') }}" class="{{ request()->routeIs('financial-years.create') ? 'active' : '' }}">
+                            {{ __('Add') }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+
+
+
+
             <li>
                 <a href="{{ route('settings.index') }}"
                    class="navItem {{ (request()->is('settings*')) || (request()->is('users*')) || (request()->is('roles*')) || (request()->is('profiles*')) || (request()->is('permissions*')) ? 'active' : '' }}">
