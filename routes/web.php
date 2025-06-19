@@ -5,7 +5,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolesAndPermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BankAccountController;
+use App\Http\Controllers\BankTransactionController;
 use App\Http\Controllers\FinancialYearController;
+use App\Http\Controllers\BankController;
 
 
 Route::get('/', function () {
@@ -102,10 +105,34 @@ Route::group([
         Route::get('/', [FinancialYearController::class, 'index'])->name('index');
         Route::get('/create', [FinancialYearController::class, 'create'])->name('create');
         Route::post('/store', [FinancialYearController::class, 'store'])->name('store');
-Route::delete('/delete/{financialYear}', [FinancialYearController::class, 'destroy'])->name('destroy');
+          Route::get('/edit/{financialYear}', [FinancialYearController::class, 'edit'])->name('edit');
+         Route::patch('/update/{financialYear}', [FinancialYearController::class, 'update'])->name('update');
+        Route::delete('/delete/{financialYear}', [FinancialYearController::class, 'destroy'])->name('destroy');
+    });
+      Route::group([
+        'as' => 'bank-accounts.',
+        'prefix' => 'bank-accounts',
+        // 'middleware' => 'can:bank-accounts-view' 
+    ], function () {
+        Route::get('/', [BankAccountController::class, 'index'])->name('index');
+        Route::get('/create', [BankAccountController::class, 'create'])->name('create');
+        Route::post('/store', [BankAccountController::class, 'store'])->name('store');
+         Route::get('/edit/{bankAccount}', [BankAccountController::class, 'edit'])->name('edit');
+         Route::patch('/update/{bankAccount}', [BankAccountController::class, 'update'])->name('update');
+        Route::delete('/delete/{bankAccount}', [BankAccountController::class, 'destroy'])->name('destroy');
+    });
 
-
-
+       Route::group([
+        'as' => 'bank-transactions.',
+        'prefix' => 'bank-transactions',
+        // 'middleware' => 'can:bank-transactions-view' 
+    ], function () {
+        Route::get('/', [BankTransactionController::class, 'index'])->name('index');
+        Route::get('/create', [BankTransactionController::class, 'create'])->name('create');
+        Route::post('/store', [BankTransactionController::class, 'store'])->name('store');
+         Route::get('/edit/{bankTransaction}', [BankTransactionController::class, 'edit'])->name('edit');
+         Route::patch('/update/{bankTransaction}', [BankTransactionController::class, 'update'])->name('update');
+        Route::delete('/delete/{bankTransaction}', [BankTransactionController::class, 'destroy'])->name('destroy');
     });
 
 });

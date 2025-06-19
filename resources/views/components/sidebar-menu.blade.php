@@ -76,6 +76,27 @@
             </li>
 
 
+            <li class="{{ request()->routeIs('bank-transactions.*') ? 'active' : '' }}">
+                <a href="{{ route('bank-transactions.index') }}" class="navItem">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="heroicons:calendar-days"></iconify-icon>
+                        <span>{{ __('Bank Transactions') }}</span>
+                    </span>
+                    <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('bank-transactions.index') }}" class="{{ request()->routeIs('bank-transactions.index') ? 'active' : '' }}">{{ __('List') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('bank-transactions.create') }}" class="{{ request()->routeIs('bank-transactions.create') ? 'active' : '' }}">
+                            {{ __('Add') }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
 
 
             <li>
