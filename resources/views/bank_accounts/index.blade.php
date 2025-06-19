@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class=" mb-6">
+    <div class="mb-6">
         {{-- Breadcrumb start --}}
         <x-breadcrumb :breadcrumbItems="$breadcrumbItems" :pageTitle="$pageTitle" />
     </div>
@@ -9,57 +9,46 @@
                 <div class="card">
                     <div class="card-body px-6 pb-6">
                         <div class="overflow-x-auto -mx-6 dashcode-data-table">
-                            <span class=" col-span-8  hidden"></span>
-                            <span class="  col-span-4 hidden"></span>
+                            <span class="col-span-8 hidden"></span>
+                            <span class="col-span-4 hidden"></span>
                             <div class="inline-block min-w-full align-middle">
-                                <div class="overflow-hidden ">
+                                <div class="overflow-hidden">
                                     <table
                                         class="min-w-full divide-y divide-slate-100 table-fixed dark:divide-slate-700 data-table">
-                                        <thead class=" bg-slate-200 dark:bg-slate-700">
+                                        <thead class="bg-slate-200 dark:bg-slate-700">
                                             <tr>
-                                                <th scope="col" class=" table-th ">
-                                                    Id
-                                                </th>
-                                                <th scope="col" class=" table-th ">
-                                                    Name
-                                                </th>
-                                                <th scope="col" class=" table-th ">
-                                                   Start Date
-                                                </th>
-                                                <th scope="col" class=" table-th ">
-                                                   End Date
-                                                </th>
-                                              
-                                                <th scope="col" class=" table-th ">
-                                                    Actions
-                                                </th>
+                                                <th scope="col" class="table-th">Id</th>
+                                                <th scope="col" class="table-th">Company Name</th>
+                                                <th scope="col" class="table-th">Bank Name</th>
+                                                <th scope="col" class="table-th">Account Number</th>
+                                                <th scope="col" class="table-th">IBAN</th>
+                                                <th scope="col" class="table-th">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody
                                             class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
-                                           @foreach ($financialYears as $item)
+                                            @foreach ($bankAccounts as $item)
                                                 <tr>
                                                     <td class="table-td">{{ $loop->iteration }}</td>
+                                                    <td class="table-td">{{ $item->company_name }}</td>
+                                                    <td class="table-td">{{ $item->bank_name }}</td>
+                                                    <td class="table-td">{{ $item->account_number }}</td>
+                                                    <td class="table-td">{{ $item->iban ?? '-' }}</td>
                                                    
-                                                   <td class="table-td">{{ $item->name }}</td>
-                                                    <td class="table-td">{{ $item->start_date->format('d M, Y') }}</td>
-                                                    <td class="table-td">{{ $item->end_date->format('d M, Y') }}</td>
                                                     <td class="table-td">
                                                         <div class="flex space-x-3 rtl:space-x-reverse">
-                                                            <a class="action-btn" href="{{ route('financial-years.edit', $item->id) }}">
+                                                            <a href="{{ route('bank-accounts.edit', $item->id) }}" class="action-btn">
                                                                 <iconify-icon icon="heroicons:pencil-square"></iconify-icon>
                                                             </a>
-                                                         
-                                                            <form id="deleteForm{{ $item->id }}" action="{{ route('financial-years.destroy', $item->id) }}" method="POST">
-   
-                                                                 @csrf
-                                                                    @method('DELETE')
-                                                                    <a class="action-btn cursor-pointer"
-                                                                        onclick="sweetAlertDelete(event, 'deleteForm{{ $item['id'] }}')">
-                                                                        <iconify-icon icon="heroicons:trash"></iconify-icon>
-                                                                    </a>
-                                                            </form>
 
+                                                            <form id="deleteForm{{ $item->id }}" action="{{ route('bank-accounts.destroy', $item->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <a class="action-btn cursor-pointer"
+                                                                    onclick="sweetAlertDelete(event, 'deleteForm{{ $item->id }}')">
+                                                                    <iconify-icon icon="heroicons:trash"></iconify-icon>
+                                                                </a>
+                                                            </form>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -74,10 +63,11 @@
             </div>
         </div>
     </div>
+
     @push('scripts')
         <script type="module">
             $(document).ready(function() {
-                $('#data-table, .data-table').DataTable({
+                $('.data-table').DataTable({
                     dom: "<'grid grid-cols-12 gap-5 px-6 mt-6'<'#dataTable_buttons.col-span-4'><'col-span-8 flex justify-end'f><'#pagination.flex items-center'>><'min-w-full't><'grid grid-cols-12 gap-5 px-6 mt-6 items-center'<'col-span-4'l><'col-span-8 flex justify-end'p><'#pagination.flex items-center'>>",
                     paging: true,
                     ordering: true,
@@ -95,33 +85,31 @@
                     },
                     initComplete: function(settings, json) {
                         $('#dataTable_buttons').append(`
-                       
                             <a class="btn inline-flex justify-center btn-dark rounded-[25px] items-center !p-2 !px-3"
-                                href="{{ route('financial-years.create') }}">
-                                <iconify-icon icon="ic:round-plus" class="text-lg mr-1">
-                                </iconify-icon>
-                                {{ __('New') }}
+                                href="{{ route('bank-accounts.create') }}">
+                                <iconify-icon icon="ic:round-plus" class="text-lg mr-1"></iconify-icon>
+                                {{ __('New Bank Account') }}
                             </a>
-                     
-                        <a class="btn inline-flex justify-center btn-dark rounded-[25px] items-center !p-2.5"
-                            href="{{ route('financial-years.index') }}">
-                            <iconify-icon icon="mdi:refresh" class="text-xl "></iconify-icon>
-                        </a>
+                            <a class="btn inline-flex justify-center btn-dark rounded-[25px] items-center !p-2.5"
+                                href="{{ route('bank-accounts.index') }}">
+                                <iconify-icon icon="mdi:refresh" class="text-xl"></iconify-icon>
+                            </a>
                         `);
                     }
                 });
             });
         </script>
+
         <script>
             function sweetAlertDelete(event, formId) {
                 event.preventDefault();
                 let form = document.getElementById(formId);
                 Swal.fire({
-                    title: '@lang('Are you sure ? ')',
+                    title: '@lang('Are you sure ?')',
                     icon: 'question',
                     showDenyButton: true,
-                    confirmButtonText: '@lang('Delete ')',
-                    denyButtonText: '@lang('Cancel ')',
+                    confirmButtonText: '@lang('Delete')',
+                    denyButtonText: '@lang('Cancel')',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();

@@ -23,6 +23,7 @@ class User extends Authenticatable implements HasMedia
         'name',
         'email',
         'password',
+        'financial_year_id',
     ];
 
     /**
@@ -56,9 +57,13 @@ class User extends Authenticatable implements HasMedia
             ->singleFile();
     }
 
-            public function financialYear()
-        {
-            return $this->belongsTo(FinancialYear::class);
-        }
+    public function financialYear()
+    {
+    return $this->belongsTo(FinancialYear::class);
+    }
+
+ 
+
+
 
 }

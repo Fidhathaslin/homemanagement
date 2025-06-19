@@ -45,5 +45,12 @@ class RolesAndPermissionsSeeder extends Seeder
         $superAdminRole->syncPermissions(Permission::all());
 
         $adminRole->syncPermissions($permissions);
+
+        $supervisorRole = Role::firstOrCreate(['name' => 'supervisor'], ['guard_name' => 'web']);
+        $staffRole = Role::firstOrCreate(['name' => 'staff'], ['guard_name' => 'web']);
+        $supplierRole = Role::firstOrCreate(['name' => 'supplier'], ['guard_name' => 'web']);
+        $customerRole = Role::firstOrCreate(['name' => 'customer'], ['guard_name' => 'web']);
+
+
     }
 }

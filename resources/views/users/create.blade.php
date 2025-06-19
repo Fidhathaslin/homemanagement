@@ -3,7 +3,7 @@
         {{--Breadcrumb start--}}
         <div class="mb-6">
             {{--BreadCrumb--}}
-            <x-breadcrumb :breadcrumb-items="$breadcrumbItems" :page-title="$pageTitle" />
+            <x-breadcrumb :breadcrumb-items="$breadcrumbItems" :pageTitle="$pageTitle" />
         </div>
         {{--Breadcrumb end--}}
 
