@@ -8,6 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\FinancialYear;
+use Carbon\Carbon; 
 
 class AuthenticatedSessionController extends Controller
 {
@@ -26,10 +28,30 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
-          Auth::user()->update([
-        'financial_year_id' => $request->input('financial_year_id'),
+      $request->session()->regenerate();
+
+    $now = Carbon::now();
+
+    
+
+    $currentFY = FinancialYear::where('start_date', '<=', $now)
+        ->where('end_date', '>=', $now)
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+    if (!$currentFY) {
+        // If no financial year found, logout and show error
+        Auth::logout();
+        return redirect()->back()->withErrors([
+            'email' => 'No active financial year found for today (' . $now->format('d M Y') . '). Please contact admin.',
+        ]);
+    }
+
+    // Assign current FY to the user (or optionally session if needed)
+    Auth::user()->update([
+        'financial_year_id' => $currentFY->id,
     ]);
+
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

@@ -8,7 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BankTransactionController;
 use App\Http\Controllers\FinancialYearController;
-use App\Http\Controllers\BankController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SalaryController;
 
 
 Route::get('/', function () {
@@ -109,18 +110,17 @@ Route::group([
          Route::patch('/update/{financialYear}', [FinancialYearController::class, 'update'])->name('update');
         Route::delete('/delete/{financialYear}', [FinancialYearController::class, 'destroy'])->name('destroy');
     });
-      Route::group([
-        'as' => 'bank-accounts.',
-        'prefix' => 'bank-accounts',
-        // 'middleware' => 'can:bank-accounts-view' 
-    ], function () {
-        Route::get('/', [BankAccountController::class, 'index'])->name('index');
-        Route::get('/create', [BankAccountController::class, 'create'])->name('create');
-        Route::post('/store', [BankAccountController::class, 'store'])->name('store');
-         Route::get('/edit/{bankAccount}', [BankAccountController::class, 'edit'])->name('edit');
-         Route::patch('/update/{bankAccount}', [BankAccountController::class, 'update'])->name('update');
-        Route::delete('/delete/{bankAccount}', [BankAccountController::class, 'destroy'])->name('destroy');
-    });
+    Route::group([
+    'as' => 'staff-bank-accounts.',
+    'prefix' => 'staff-bank-accounts',
+], function () {
+    Route::get('/', [BankAccountController::class, 'staffIndex'])->name('index');
+    Route::get('/create', [BankAccountController::class, 'staffCreate'])->name('create');
+    Route::post('/store', [BankAccountController::class, 'staffStore'])->name('store');
+    Route::get('/edit/{bankAccount}', [BankAccountController::class, 'staffEdit'])->name('edit');
+    Route::patch('/update/{bankAccount}', [BankAccountController::class, 'staffUpdate'])->name('update');
+    Route::delete('/delete/{bankAccount}', [BankAccountController::class, 'staffDestroy'])->name('destroy');
+});
 
        Route::group([
         'as' => 'bank-transactions.',
@@ -133,6 +133,28 @@ Route::group([
          Route::get('/edit/{bankTransaction}', [BankTransactionController::class, 'edit'])->name('edit');
          Route::patch('/update/{bankTransaction}', [BankTransactionController::class, 'update'])->name('update');
         Route::delete('/delete/{bankTransaction}', [BankTransactionController::class, 'destroy'])->name('destroy');
+    });
+
+      Route::group([
+        'as' => 'salaries.',
+        'prefix' => 'salaries',
+        // 'middleware' => 'can:salaries-view' 
+    ], function () {
+        Route::get('/', [SalaryController::class, 'index'])->name('index');
+        Route::get('/create', [SalaryController::class, 'create'])->name('create');
+        Route::post('/store', [SalaryController::class, 'store'])->name('store');
+        Route::get('/show/{salary}', [SalaryController::class, 'show'])->name('show');
+        Route::get('/edit/{salary}', [SalaryController::class, 'edit'])->name('edit');
+        Route::patch('/update/{salary}', [SalaryController::class, 'update'])->name('update');
+        Route::delete('/delete/{salary}', [SalaryController::class, 'destroy'])->name('destroy');
+    });
+  Route::group([
+        'as' => 'reports.',
+        'prefix' => 'reports',
+       
+    ], function () {
+        Route::get('/income-expense', [ReportController::class, 'incomeExpense'])->name('income-expense');
+       
     });
 
 });

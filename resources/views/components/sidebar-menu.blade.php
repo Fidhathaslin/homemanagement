@@ -97,7 +97,17 @@
             </li>
 
 
-
+            
+            <li class="{{ request()->routeIs('reports.*') ? 'active' : '' }}">
+                <a href="{{ route('reports.income-expense') }}" class="navItem">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="heroicons:calendar-days"></iconify-icon>
+                        <span>{{ __(' Income & Expense Report') }}</span>
+                    </span>
+                    <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
+                </a>
+                
+            </li>
 
             <li>
                 <a href="{{ route('settings.index') }}"

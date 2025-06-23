@@ -62,7 +62,11 @@ class User extends Authenticatable implements HasMedia
     return $this->belongsTo(FinancialYear::class);
     }
 
- 
+    public function salaries()
+    {
+    return $this->hasMany(Salary::class);
+    }
+
 
 
 

@@ -9,43 +9,47 @@
                 <div class="card">
                     <div class="card-body px-6 pb-6">
                         <div class="overflow-x-auto -mx-6 dashcode-data-table">
-                            <span class="col-span-8 hidden"></span>
-                            <span class="col-span-4 hidden"></span>
                             <div class="inline-block min-w-full align-middle">
                                 <div class="overflow-hidden">
                                     <table
                                         class="min-w-full divide-y divide-slate-100 table-fixed dark:divide-slate-700 data-table">
                                         <thead class="bg-slate-200 dark:bg-slate-700">
                                             <tr>
-                                                <th scope="col" class="table-th">Id</th>
-                                                <th scope="col" class="table-th">Company Name</th>
-                                                <th scope="col" class="table-th">Bank Name</th>
-                                                <th scope="col" class="table-th">Account Number</th>
-                                                <th scope="col" class="table-th">IBAN</th>
+                                                <th scope="col" class="table-th">#</th>
+                                                <th scope="col" class="table-th">Month</th>
+                                                <th scope="col" class="table-th">Year</th>
+                                                <th scope="col" class="table-th">Amount</th>
+                                                <th scope="col" class="table-th">Status</th>
+                                                <th scope="col" class="table-th">Paid Date</th>
                                                 <th scope="col" class="table-th">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody
                                             class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
-                                            @foreach ($bankAccounts as $item)
+                                            @foreach ($salaries as $salary)
                                                 <tr>
                                                     <td class="table-td">{{ $loop->iteration }}</td>
-                                                    <td class="table-td">{{ $item->company_name }}</td>
-                                                    <td class="table-td">{{ $item->bank_name }}</td>
-                                                    <td class="table-td">{{ $item->account_number }}</td>
-                                                    <td class="table-td">{{ $item->iban ?? '-' }}</td>
-                                                   
+                                                    <td class="table-td">{{ $salary->month }}</td>
+                                                    <td class="table-td">{{ $salary->year }}</td>
+                                                    <td class="table-td">{{ number_format($salary->amount, 2) }}</td>
+                                                    <td class="table-td">
+                                                            {{ ucfirst($salary->status) }}
+                                                      
+                                                    </td>
+                                                    <td class="table-td">
+                                                        {{ $salary->paid_date ? $salary->paid_date->format('Y-m-d') : '-' }}
+                                                    </td>
                                                     <td class="table-td">
                                                         <div class="flex space-x-3 rtl:space-x-reverse">
-                                                            <a href="{{ route('bank-accounts.edit', $item->id) }}" class="action-btn">
+                                                            <a href="{{ route('salaries.edit', $salary->id) }}" class="action-btn" title="Edit">
                                                                 <iconify-icon icon="heroicons:pencil-square"></iconify-icon>
                                                             </a>
 
-                                                            <form id="deleteForm{{ $item->id }}" action="{{ route('bank-accounts.destroy', $item->id) }}" method="POST">
+                                                            <form id="deleteForm{{ $salary->id }}" action="{{ route('salaries.destroy', $salary->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <a class="action-btn cursor-pointer"
-                                                                    onclick="sweetAlertDelete(event, 'deleteForm{{ $item->id }}')">
+                                                                <a class="action-btn cursor-pointer" title="Delete"
+                                                                   onclick="sweetAlertDelete(event, 'deleteForm{{ $salary->id }}')">
                                                                     <iconify-icon icon="heroicons:trash"></iconify-icon>
                                                                 </a>
                                                             </form>
@@ -86,12 +90,12 @@
                     initComplete: function(settings, json) {
                         $('#dataTable_buttons').append(`
                             <a class="btn inline-flex justify-center btn-dark rounded-[25px] items-center !p-2 !px-3"
-                                href="{{ route('bank-accounts.create') }}">
+                                href="{{ route('salaries.create') }}">
                                 <iconify-icon icon="ic:round-plus" class="text-lg mr-1"></iconify-icon>
-                                {{ __('New Bank Account') }}
+                                {{ __('New Salary') }}
                             </a>
                             <a class="btn inline-flex justify-center btn-dark rounded-[25px] items-center !p-2.5"
-                                href="{{ route('bank-accounts.index') }}">
+                                href="{{ route('salaries.index') }}">
                                 <iconify-icon icon="mdi:refresh" class="text-xl"></iconify-icon>
                             </a>
                         `);

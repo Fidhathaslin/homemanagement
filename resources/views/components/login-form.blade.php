@@ -1,21 +1,30 @@
 <form method="POST" action="{{ route('login') }}" class="space-y-4">
     @csrf
     {{-- Financial Year --}}
-    <div class="fromGroup">
-        <label for="financial_year_id" class="block capitalize form-label">{{ __('Financial Year') }}</label>
-        <div class="relative">
-            <select name="financial_year_id" id="financial_year_id"
-                class="form-control py-2 @error('financial_year_id') !border !border-red-500 @enderror" required>
-                <option value="" disabled selected>{{ __('Select Financial Year') }}</option>
-                @foreach(\App\Models\FinancialYear::all() as $fy)
-                    <option value="{{ $fy->id }}" {{ old('financial_year_id') == $fy->id ? 'selected' : '' }}>
-                        {{ $fy->name }} ({{ \Carbon\Carbon::parse($fy->start_date)->format('d M, Y') }} - {{ \Carbon\Carbon::parse($fy->end_date)->format('d M, Y') }})
-                    </option>
-                @endforeach
-            </select>
-            <x-input-error :messages="$errors->get('financial_year_id')" class="mt-2"/>
-        </div>
-    </div>
+@php
+    $now = \Carbon\Carbon::now();
+
+    $currentFY = \App\Models\FinancialYear::where('start_date', '<=', $now)
+        ->where('end_date', '>=', $now)
+        ->orderBy('created_at', 'desc')
+        ->first();
+@endphp
+
+
+<div class="fromGroup">
+    <label for="current_fy" class="block capitalize form-label">{{ __('Current Financial Year') }}</label>
+    <input type="text"
+           id="current_fy"
+           class="form-control py-2 bg-slate-100 text-gray-600"
+           value="{{ $currentFY ? $currentFY->name . ' (' . \Carbon\Carbon::parse($currentFY->start_date)->format('d M Y') . ' - ' . \Carbon\Carbon::parse($currentFY->end_date)->format('d M Y') . ')' : 'Not available' }}"
+           readonly>
+</div>
+
+
+
+
+
+
     
 
     {{-- Email --}}

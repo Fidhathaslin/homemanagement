@@ -36,6 +36,17 @@
                         </select>
                         <x-input-error :messages="$errors->get('bank_account_id')" class="mt-2" />
                     </div>
+                    {{-- Staff (only shown for debit transactions) --}}
+                    <div class="input-area">
+                        <label for="user_id" class="form-label">{{ __('Staff (if salary)') }}</label>
+                        <select name="user_id" id="user_id" class="form-control">
+                            <option value="">{{ __('Select Staff') }}</option>
+                            @foreach ($staff as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
+                    </div>
 
                     {{-- Type --}}
                     <div class="input-area">

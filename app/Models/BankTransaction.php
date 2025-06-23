@@ -11,6 +11,7 @@ class BankTransaction extends Model
 
   protected $fillable = [
         'bank_account_id',
+          'user_id',
         'type',
         'amount',
         'description',
@@ -27,5 +28,17 @@ class BankTransaction extends Model
 {
     return $this->belongsTo(BankAccount::class);
 }
+
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
+
+public function salary()
+{
+    return $this->hasOne(Salary::class);
+}
+
 
 }
